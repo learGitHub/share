@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Share</title>
+    <title>Quiz1</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,79 @@
   </head>
 
   <body>
-    <%= yield %>
+
+    <header class="row">
+      <div class="col-2">
+        <%= link_to root_path, class: 'logo' do %>
+          <div class="logo">
+            <br />
+            <br />
+            Quiz#2
+            <br />
+          </div>
+        <% end %>
+      </div>
+      <div class="col-8 title text-center">
+
+        This is Quiz Two
+      </div>
+      <div class="col-2 links">
+        <br />
+      <!-- Button trigger modal -->
+        <%= link_to 'Contribute', '#', data: {toggle: 'modal', target: '#myModal'} %> 
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <%= link_to 'About', about_path %>
+      </div>
+    </header>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Share Your Day</h4>
+          </div>
+          <div class="modal-body">
+      <%= simple_form_for Xshare.new do |f| %>
+        <div class="modal-body">
+          <%= f.input :text, label: "How is you day going?", placeholder: "Please share with us a moment of your life." %>
+          <br />
+          <%= f.input :name, label: "What is your name?", placeholder: "It is nice to have you here." %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <%= f.submit 'Create', class: 'btn btn-danger' %>
+        </div>
+      <% end %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <hr />
+    <br class="clear" />
+
+    <div class="container">
+      <% if flash[:error].present? %>
+        <div class="col-10 offset-1 alert alert-danger">
+          <%= flash[:error].html_safe %>
+        </div>
+      <% end %>
+      <%= yield %>
+    </div>
+
+    <hr />
+
+    <br class="clear" />
+
+
   </body>
 </html>
